@@ -1,0 +1,73 @@
+#define_CRT_SECURE_NO_WARNINGS
+#include"locale"
+#include"stdio.h"
+#include"conio.h"
+#include<locale.h>
+#include<stdlib.h>
+#include<malloc.h>
+#include<iostream>
+usingnamespace std;
+#include<queue>;
+voidBFS(intv, int** matrix, intsize, int* NUM) 
+{
+	int st = 0;
+	st = v;
+	queue<int> Q;
+	NUM[st] = 1;
+	Q.push(st);
+	while(!Q.empty()) {
+		st = Q.front();
+		Q.pop();
+		printf("%d", st);
+		for (int i = 0; i <size; i++)
+		{
+			if (matrix[st][i] == 1 &&NUM[i] == 0)
+			{
+				Q.push(i);
+				NUM[i] = 1;
+			}
+		}
+	}
+}
+int main()
+{
+	srand(time(NULL));
+	setlocale(LC_ALL, "RUS");
+	int v, n;
+	printf("Введите размерность матрицы: ");
+	scanf("%d", &n);
+	int** M;
+	int* NUM;
+	M = (int**)malloc(n * sizeof(int*));
+	for (int i = 0; i < n; i++) // циклпострокам
+	{
+		M[i] = (int*)malloc(n * sizeof(int));
+	}
+	//int M[6][6];
+	NUM = (int*)malloc(n * sizeof(int));
+	for (int i = 0; i < n; i++)
+	{
+		NUM[i] = 0;
+	}
+	printf("Сгенерированные матрицы:");
+	printf("\n");
+	for (int i = 0; i < n; i++)
+	{
+		for (int j = 0; j < n; j++)
+		{
+			M[i][j] = rand() % 2;
+			printf("%3d,", M[i][j]);
+		}
+		printf("\n");
+	}
+	printf("\n\n");
+	printf("Введите вершину, с которой будет начинаться обход: ");
+	scanf("%d", &v);
+	printf("\n");
+	printf("Результат: ");
+	while (NUM[v] != 1)
+	{
+		BFS(v, M, n, NUM);
+	}
+		void	free(int* NUM);
+}
